@@ -2,6 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+// Caveat: vars can't be easily reused between background and content scripts
+// const rightClickObjKey = "dom.target-clicked"
+
+
+
 const expandLevel = ["+", "++", "+++", "++++", "+++++"]
 // Add a listener to create the initial context menu items,
 // context menu items only need to be created at runtime.onInstalled
@@ -17,10 +22,15 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 // Open a new search tab when the user clicks a context menu
-chrome.contextMenus.onClicked.addListener((item, tab) => {
+chrome.contextMenus.onClicked.addListener(async (item, tab) => {
   const lvl_id = item.menuItemId;
   console.log("level id:", lvl_id)
-  chrome.storage.sync.get("dom.target-clicked").then((target) => {
-    console.log("clicked target:", target)
+  chrome.storage.local.get("rightClickObjKey").then((result) => {
+    const target = result.rightclickObjKey
+    if (target) {
+      target.style.background = "antiquewhite"
+    } else {
+      console.log("target is not insert successfully")
+    }
   })
 });
