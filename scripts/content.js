@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const article = document.querySelector('article');
-
+document.onclick = (event_handler, mouseevent) => {
+  
+}
 // `document.querySelector` may return null if the selector doesn't match anything.
 if (article) {
   const text = article.textContent;
