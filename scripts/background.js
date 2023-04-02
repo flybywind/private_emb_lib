@@ -19,4 +19,8 @@ chrome.runtime.onInstalled.addListener(async () => {
 // Open a new search tab when the user clicks a context menu
 chrome.contextMenus.onClicked.addListener((item, tab) => {
   const lvl_id = item.menuItemId;
+  console.log("level id:", lvl_id)
+  chrome.storage.sync.get("dom.target-clicked").then((target) => {
+    console.log("clicked target:", target)
+  })
 });
